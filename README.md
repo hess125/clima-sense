@@ -1,4 +1,4 @@
-# 🌡️ Desert HeatLens
+# 🌡️ ClimaSense
 
 **Climate Resilience Intelligence Platform for UAE**
 
@@ -90,22 +90,8 @@ desert-heatlens/
 - Real-time interactive mapping
 - Responsive design for all devices
 
-## 🤝 Contributing
-
-Contributions welcome! Please read our contributing guidelines first.
-
-## 📄 License
-
-MIT License - see LICENSE file for details
-
-## 👥 Team
-
+                    ---
 Built with ❤️ for climate resilience in the UAE
+                    ---
 
-## 📞 Contact
-
-For questions or collaboration: [your-email@example.com]
-
----
-
-**Desert HeatLens** - Making cities cooler, one zone at a time.
+**ClimaSense** - Making cities cooler, one zone at a time.
