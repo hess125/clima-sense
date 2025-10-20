@@ -92,7 +92,7 @@ function App() {
     // Title
     doc.setFontSize(20);
     doc.setTextColor(234, 88, 12);
-    doc.text('Desert HeatLens Report', 20, 20);
+    doc.text('ClimaSense Report', 20, 20);
     
     // Subtitle
     doc.setFontSize(12);
@@ -152,10 +152,10 @@ function App() {
     // Footer
     doc.setFontSize(8);
     doc.setTextColor(156, 163, 175);
-    doc.text('Desert HeatLens © 2024 | Powered by AI & Satellite Data', 20, 285);
+    doc.text('ClimaSense © 2024 | Powered by AI & Satellite Data', 20, 285);
     
     // Save
-    doc.save('Desert-HeatLens-Report.pdf');
+    doc.save('ClimaSense-Report.pdf');
   };
 
   const handleLocationSelect = (location) => {
@@ -197,7 +197,7 @@ function App() {
                 <Thermometer className="w-7 h-7 text-white" />
               </div>
               <div className="logo-text">
-                <h1>Desert HeatLens</h1>
+                <h1>ClimaSense</h1>
                 <p className="hidden sm:block">Climate Resilience Intelligence</p>
               </div>
             </div>
@@ -307,7 +307,7 @@ function App() {
       {/* Footer */}
       <footer className="glass-footer">
         <div className="container-custom footer-content">
-          <p>© 2024 Desert HeatLens | Climate Resilience Intelligence for UAE</p>
+          <p>© 2024 ClimaSense | Climate Resilience Intelligence for UAE</p>
           <p className="footer-subtitle">Powered by AI, Satellite Data & Machine Learning</p>
           
           {/* Data Sources - Compact */}
