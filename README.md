@@ -33,8 +33,8 @@ A comprehensive AI-powered geospatial platform that detects, predicts, and visua
 ### Installation
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/desert-heatlens.git
-cd desert-heatlens
+git clone https://github.com/hess125/climasense.git
+cd climasense
 
 # Install dependencies
 npm install
@@ -53,8 +53,6 @@ cp heat_zones.json ../src/data/
 cd ..
 npm start
 ```
-
-Visit `http://localhost:3000` to view the app.
 
 ## 📊 Data Sources
 
