@@ -897,7 +897,10 @@ function StatCard({ icon, title, value, subtitle, color }) {
   return (
     <div className="stat-card glass-card">
       <div className={`stat-icon bg-gradient-to-br ${color}`}>
-        {icon}
+        {/* Add this wrapper with orange color */}
+        <div style={{ color: '#fb923c' }}>
+          {icon}
+        </div>
       </div>
       <div className="stat-title">{title}</div>
       <div className="stat-value">{value}</div>
