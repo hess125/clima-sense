@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Desert Heat Map</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="heat_map_styles.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <style>
+                #map_acedc1ae00df8671c2852622088b8068 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+    <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium@main/folium/templates/leaflet_heat.min.js"></script>
+</head>
+<body>
+    
+<div class="legend-container">
+     <h4 class="legend-title">
+        🌡️ Risk Levels
+     </h4>
+     <div class="legend-row">
+        <span class="legend-dot legend-critical"></span>
+        <span class="legend-label">Critical (8.5-10)</span>
+     </div>
+     <div class="legend-row">
+        <span class="legend-dot legend-high"></span>
+        <span class="legend-label">High (7.5-8.4)</span>
+     </div>
+     <div class="legend-row">
+        <span class="legend-dot legend-medium"></span>
+        <span class="legend-label">Medium (6.5-7.4)</span>
+     </div>
+     <div class="legend-row">
+        <span class="legend-dot legend-low"></span>
+        <span class="legend-label">Low (&lt;6.5)</span>
+     </div>
+     <div class="legend-footer">
+        Click markers for details
+     </div>
+</div>
+</div>
+    
+            <div class="folium-map" id="map_acedc1ae00df8671c2852622088b8068" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_acedc1ae00df8671c2852622088b8068 = L.map(
+                "map_acedc1ae00df8671c2852622088b8068",
+                {
+                    center: [25.2048, 55.2708],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 11,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_acedc1ae00df8671c2852622088b8068);
+
+            
+
+        
+    
+            var tile_layer_43e56f4fd853c1a5740a2c0e87ad1ea9 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_43e56f4fd853c1a5740a2c0e87ad1ea9.addTo(map_acedc1ae00df8671c2852622088b8068);
+        
+    
+            var tile_layer_00838205e4e7ca4a688c989126202586 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_00838205e4e7ca4a688c989126202586.addTo(map_acedc1ae00df8671c2852622088b8068);
+        
+    
+            var tile_layer_998bf4e7484c10af9134be9cfe7304d4 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_998bf4e7484c10af9134be9cfe7304d4.addTo(map_acedc1ae00df8671c2852622088b8068);
+        
+    
+            var marker_cluster_7212cb95b77c9c02400b98ab4ba00594 = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_4e5395917f6233e1f107e95ff9431da0 = L.circleMarker(
+                [25.1972, 55.2744],
+                {"bubblingMouseEvents": true, "color": "#f97316", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f97316", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 21.0, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_544689a289f3d7f69cd68d89296919f8 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_3ba9f4cb260fd1e0d100df8123859da9 = $(`<div id="html_3ba9f4cb260fd1e0d100df8123859da9" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #f97316; border-bottom: 2px solid #f97316; padding-bottom: 8px;'>             🌡️ Downtown Dubai         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Downtown</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Commercial</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>8.4/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>53.0°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>18.4%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.15</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>67%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>8,852</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>2,844</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #f9731622; border-left: 4px solid #f97316; border-radius: 4px;'>             <strong style='color: #f97316;'>Risk Level: HIGH</strong>         </div>     </div>     </div>`)[0];
+                popup_544689a289f3d7f69cd68d89296919f8.setContent(html_3ba9f4cb260fd1e0d100df8123859da9);
+            
+        
+
+        circle_marker_4e5395917f6233e1f107e95ff9431da0.bindPopup(popup_544689a289f3d7f69cd68d89296919f8)
+        ;
+
+        
+    
+    
+            circle_marker_4e5395917f6233e1f107e95ff9431da0.bindTooltip(
+                `<div>
+                     Downtown Dubai - High
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_bb7dc1164828186f565165c43a0dfef5 = L.circleMarker(
+                [25.1876, 55.2571],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.0, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_91320df7e3c1213d50f78b45bfc1ae48 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_6fa7f81ebeb1c571cb9552d5139fe776 = $(`<div id="html_6fa7f81ebeb1c571cb9552d5139fe776" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ Business Bay         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Business</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Commercial</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>7.2/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>52.6°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>26.3%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.22</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>82%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>8,587</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>2,223</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_91320df7e3c1213d50f78b45bfc1ae48.setContent(html_6fa7f81ebeb1c571cb9552d5139fe776);
+            
+        
+
+        circle_marker_bb7dc1164828186f565165c43a0dfef5.bindPopup(popup_91320df7e3c1213d50f78b45bfc1ae48)
+        ;
+
+        
+    
+    
+            circle_marker_bb7dc1164828186f565165c43a0dfef5.bindTooltip(
+                `<div>
+                     Business Bay - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5e4de77b1046df9d4ec18730ae1981ba = L.circleMarker(
+                [25.2138, 55.2808],
+                {"bubblingMouseEvents": true, "color": "#f97316", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f97316", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20.25, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_6a982f66855ea56e322e4be197caf83e = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_ca9c61aa0b73ebec9e640d2c200498d3 = $(`<div id="html_ca9c61aa0b73ebec9e640d2c200498d3" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #f97316; border-bottom: 2px solid #f97316; padding-bottom: 8px;'>             🌡️ DIFC         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Financial</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Commercial</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>8.1/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>53.0°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>26.8%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.21</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>79%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>11,245</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>3,423</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #f9731622; border-left: 4px solid #f97316; border-radius: 4px;'>             <strong style='color: #f97316;'>Risk Level: HIGH</strong>         </div>     </div>     </div>`)[0];
+                popup_6a982f66855ea56e322e4be197caf83e.setContent(html_ca9c61aa0b73ebec9e640d2c200498d3);
+            
+        
+
+        circle_marker_5e4de77b1046df9d4ec18730ae1981ba.bindPopup(popup_6a982f66855ea56e322e4be197caf83e)
+        ;
+
+        
+    
+    
+            circle_marker_5e4de77b1046df9d4ec18730ae1981ba.bindTooltip(
+                `<div>
+                     DIFC - High
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_961211f14e6cf45157c1550a9b6f503d = L.circleMarker(
+                [25.2285, 55.2866],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.0, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_7a854e7fd704772a68e7a1c20e1e03a7 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_38c68c802bab661aae56f1f8e7b2bcf5 = $(`<div id="html_38c68c802bab661aae56f1f8e7b2bcf5" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ Trade Centre         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Business</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Commercial</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>7.2/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>50.5°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>29.1%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.13</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>79%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>8,002</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>2,079</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_7a854e7fd704772a68e7a1c20e1e03a7.setContent(html_38c68c802bab661aae56f1f8e7b2bcf5);
+            
+        
+
+        circle_marker_961211f14e6cf45157c1550a9b6f503d.bindPopup(popup_7a854e7fd704772a68e7a1c20e1e03a7)
+        ;
+
+        
+    
+    
+            circle_marker_961211f14e6cf45157c1550a9b6f503d.bindTooltip(
+                `<div>
+                     Trade Centre - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1017a0b2c9088a282d3f37c989ce3182 = L.circleMarker(
+                [25.0805, 55.1397],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.5, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_270c86665aaeb9f6fa217e908184addd = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_8b709405d5863feff616a2a4491fc5b0 = $(`<div id="html_8b709405d5863feff616a2a4491fc5b0" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ Dubai Marina         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Marina</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>7.0/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>50.4°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>16.8%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.27</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>69%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>13,113</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>3,255</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_270c86665aaeb9f6fa217e908184addd.setContent(html_8b709405d5863feff616a2a4491fc5b0);
+            
+        
+
+        circle_marker_1017a0b2c9088a282d3f37c989ce3182.bindPopup(popup_270c86665aaeb9f6fa217e908184addd)
+        ;
+
+        
+    
+    
+            circle_marker_1017a0b2c9088a282d3f37c989ce3182.bindTooltip(
+                `<div>
+                     Dubai Marina - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a94d5e78d773cf0af8016783f8c25a93 = L.circleMarker(
+                [25.0782, 55.1338],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.5, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_9bf6291273f68086880b7c951a3a3909 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_06fc4a31e19355b7569be22d3bd72db0 = $(`<div id="html_06fc4a31e19355b7569be22d3bd72db0" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ JBR - Jumeirah Beach         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Marina</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>7.4/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>53.0°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>29.0%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.20</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>59%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>16,068</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>4,321</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_9bf6291273f68086880b7c951a3a3909.setContent(html_06fc4a31e19355b7569be22d3bd72db0);
+            
+        
+
+        circle_marker_a94d5e78d773cf0af8016783f8c25a93.bindPopup(popup_9bf6291273f68086880b7c951a3a3909)
+        ;
+
+        
+    
+    
+            circle_marker_a94d5e78d773cf0af8016783f8c25a93.bindTooltip(
+                `<div>
+                     JBR - Jumeirah Beach - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c2b189543dbaa52546f0e4d99e34809d = L.circleMarker(
+                [25.1124, 55.139],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.5, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_dd44833a79fa83b2a68e9386997f7795 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_704e0f10ade6dbbe7de30cf936f48868 = $(`<div id="html_704e0f10ade6dbbe7de30cf936f48868" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #22c55e; border-bottom: 2px solid #22c55e; padding-bottom: 8px;'>             🌡️ Palm Jumeirah         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Palm</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>6.2/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>50.5°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>27.7%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.28</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>73%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>15,809</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>3,309</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #22c55e22; border-left: 4px solid #22c55e; border-radius: 4px;'>             <strong style='color: #22c55e;'>Risk Level: LOW</strong>         </div>     </div>     </div>`)[0];
+                popup_dd44833a79fa83b2a68e9386997f7795.setContent(html_704e0f10ade6dbbe7de30cf936f48868);
+            
+        
+
+        circle_marker_c2b189543dbaa52546f0e4d99e34809d.bindPopup(popup_dd44833a79fa83b2a68e9386997f7795)
+        ;
+
+        
+    
+    
+            circle_marker_c2b189543dbaa52546f0e4d99e34809d.bindTooltip(
+                `<div>
+                     Palm Jumeirah - Low
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_838c9777e781e59ee1016d3e9de09bf2 = L.circleMarker(
+                [25.0756, 55.1209],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.25, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_261dc84bd990495af4bb39fd90903452 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_2b11edfecc7d432c7621483dcecf8cea = $(`<div id="html_2b11edfecc7d432c7621483dcecf8cea" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ Bluewaters Island         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Marina</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Mixed</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>6.5/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>51.2°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>14.6%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.19</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>64%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>11,285</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>2,541</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_261dc84bd990495af4bb39fd90903452.setContent(html_2b11edfecc7d432c7621483dcecf8cea);
+            
+        
+
+        circle_marker_838c9777e781e59ee1016d3e9de09bf2.bindPopup(popup_261dc84bd990495af4bb39fd90903452)
+        ;
+
+        
+    
+    
+            circle_marker_838c9777e781e59ee1016d3e9de09bf2.bindTooltip(
+                `<div>
+                     Bluewaters Island - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d2eca4b115ccd51368e93f45be610721 = L.circleMarker(
+                [25.2715, 55.3273],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.75, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_6406a432f3105706f541d3972049a031 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_90b3f245666240f70176415aef351d7a = $(`<div id="html_90b3f245666240f70176415aef351d7a" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ Deira         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Old Dubai</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Commercial</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>7.1/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>51.4°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>14.9%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.15</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>77%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>8,131</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>2,059</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_6406a432f3105706f541d3972049a031.setContent(html_90b3f245666240f70176415aef351d7a);
+            
+        
+
+        circle_marker_d2eca4b115ccd51368e93f45be610721.bindPopup(popup_6406a432f3105706f541d3972049a031)
+        ;
+
+        
+    
+    
+            circle_marker_d2eca4b115ccd51368e93f45be610721.bindTooltip(
+                `<div>
+                     Deira - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d9d93370a031a7da1ef69988e6bd9244 = L.circleMarker(
+                [25.2631, 55.2972],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.25, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_a321c5c6a0d11e112eac27894e7a172d = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_9fae9d74325c07d12dd9113c91bd0508 = $(`<div id="html_9fae9d74325c07d12dd9113c91bd0508" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ Bur Dubai         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Old Dubai</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>7.3/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>49.1°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>16.1%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.29</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>66%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>23,249</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>6,123</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_a321c5c6a0d11e112eac27894e7a172d.setContent(html_9fae9d74325c07d12dd9113c91bd0508);
+            
+        
+
+        circle_marker_d9d93370a031a7da1ef69988e6bd9244.bindPopup(popup_a321c5c6a0d11e112eac27894e7a172d)
+        ;
+
+        
+    
+    
+            circle_marker_d9d93370a031a7da1ef69988e6bd9244.bindTooltip(
+                `<div>
+                     Bur Dubai - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d82e758aa66553298ab7fda9b9b0932b = L.circleMarker(
+                [25.2511, 55.3053],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.5, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_3d9db6cd8bd63e1b74b691d753ef7ec2 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_650c326584de17042eb41318f5e2cc49 = $(`<div id="html_650c326584de17042eb41318f5e2cc49" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ Al Karama         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Old Dubai</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>7.0/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>50.8°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>13.6%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.20</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>71%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>22,075</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>5,466</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_3d9db6cd8bd63e1b74b691d753ef7ec2.setContent(html_650c326584de17042eb41318f5e2cc49);
+            
+        
+
+        circle_marker_d82e758aa66553298ab7fda9b9b0932b.bindPopup(popup_3d9db6cd8bd63e1b74b691d753ef7ec2)
+        ;
+
+        
+    
+    
+            circle_marker_d82e758aa66553298ab7fda9b9b0932b.bindTooltip(
+                `<div>
+                     Al Karama - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_33ffe6d79e1dc520b2bcff74bdcb760c = L.circleMarker(
+                [25.2458, 55.2897],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.25, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_e25a2710983a0459edbabb37234c94db = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_a7e8d84fda273a93f99be0c5055bb0e0 = $(`<div id="html_a7e8d84fda273a93f99be0c5055bb0e0" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #22c55e; border-bottom: 2px solid #22c55e; padding-bottom: 8px;'>             🌡️ Al Mankhool         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Old Dubai</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>6.5/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>51.5°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>17.0%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.23</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>58%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>17,032</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>3,830</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #22c55e22; border-left: 4px solid #22c55e; border-radius: 4px;'>             <strong style='color: #22c55e;'>Risk Level: LOW</strong>         </div>     </div>     </div>`)[0];
+                popup_e25a2710983a0459edbabb37234c94db.setContent(html_a7e8d84fda273a93f99be0c5055bb0e0);
+            
+        
+
+        circle_marker_33ffe6d79e1dc520b2bcff74bdcb760c.bindPopup(popup_e25a2710983a0459edbabb37234c94db)
+        ;
+
+        
+    
+    
+            circle_marker_33ffe6d79e1dc520b2bcff74bdcb760c.bindTooltip(
+                `<div>
+                     Al Mankhool - Low
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_bb236bf9dea9bd715e6fd8288e63e759 = L.circleMarker(
+                [25.1122, 55.1998],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.75, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_f27366786ff40c64d8ac2d929cae1329 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_bb8688b953baab8e084ecb63ca707edd = $(`<div id="html_bb8688b953baab8e084ecb63ca707edd" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ Al Barsha         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> West Dubai</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>6.7/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>50.1°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>18.7%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.28</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>71%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>8,223</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>1,919</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_f27366786ff40c64d8ac2d929cae1329.setContent(html_bb8688b953baab8e084ecb63ca707edd);
+            
+        
+
+        circle_marker_bb236bf9dea9bd715e6fd8288e63e759.bindPopup(popup_f27366786ff40c64d8ac2d929cae1329)
+        ;
+
+        
+    
+    
+            circle_marker_bb236bf9dea9bd715e6fd8288e63e759.bindTooltip(
+                `<div>
+                     Al Barsha - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0e71c46545bd33af55e5356a11b9530d = L.circleMarker(
+                [25.1379, 55.2334],
+                {"bubblingMouseEvents": true, "color": "#dc2626", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#dc2626", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 22.5, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_a4c7c652116023e15f7747157a9772c3 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_f64d1e6d988b0d5f168f26adac66c07e = $(`<div id="html_f64d1e6d988b0d5f168f26adac66c07e" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #dc2626; border-bottom: 2px solid #dc2626; padding-bottom: 8px;'>             🌡️ Al Quoz         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Industrial</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Industrial</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>9.0/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>53.6°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>10.7%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.14</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>78%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>3,294</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>1,154</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #dc262622; border-left: 4px solid #dc2626; border-radius: 4px;'>             <strong style='color: #dc2626;'>Risk Level: CRITICAL</strong>         </div>     </div>     </div>`)[0];
+                popup_a4c7c652116023e15f7747157a9772c3.setContent(html_f64d1e6d988b0d5f168f26adac66c07e);
+            
+        
+
+        circle_marker_0e71c46545bd33af55e5356a11b9530d.bindPopup(popup_a4c7c652116023e15f7747157a9772c3)
+        ;
+
+        
+    
+    
+            circle_marker_0e71c46545bd33af55e5356a11b9530d.bindTooltip(
+                `<div>
+                     Al Quoz - Critical
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0b66f08a176888707f0f97ea18229a7e = L.circleMarker(
+                [25.2328, 55.2574],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.0, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_c0b8db67da8cddf0961f837655ce00f8 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_f79ece4bbdf41fd957f79234a0f63ce1 = $(`<div id="html_f79ece4bbdf41fd957f79234a0f63ce1" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ Jumeirah 1         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Jumeirah</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>7.2/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>51.1°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>20.6%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.23</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>61%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>12,914</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>3,371</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_c0b8db67da8cddf0961f837655ce00f8.setContent(html_f79ece4bbdf41fd957f79234a0f63ce1);
+            
+        
+
+        circle_marker_0b66f08a176888707f0f97ea18229a7e.bindPopup(popup_c0b8db67da8cddf0961f837655ce00f8)
+        ;
+
+        
+    
+    
+            circle_marker_0b66f08a176888707f0f97ea18229a7e.bindTooltip(
+                `<div>
+                     Jumeirah 1 - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cc06c01fb0c4abf399401c37172e591b = L.circleMarker(
+                [25.2158, 55.2467],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.75, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_0627de1c3b0bb36441e4abf04b21799d = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_251b9b7bef12eb3390aab864b4c1bb70 = $(`<div id="html_251b9b7bef12eb3390aab864b4c1bb70" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #22c55e; border-bottom: 2px solid #22c55e; padding-bottom: 8px;'>             🌡️ Jumeirah 2         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Jumeirah</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>6.3/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>51.4°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>20.1%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.25</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>65%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>12,628</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>2,744</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #22c55e22; border-left: 4px solid #22c55e; border-radius: 4px;'>             <strong style='color: #22c55e;'>Risk Level: LOW</strong>         </div>     </div>     </div>`)[0];
+                popup_0627de1c3b0bb36441e4abf04b21799d.setContent(html_251b9b7bef12eb3390aab864b4c1bb70);
+            
+        
+
+        circle_marker_cc06c01fb0c4abf399401c37172e591b.bindPopup(popup_0627de1c3b0bb36441e4abf04b21799d)
+        ;
+
+        
+    
+    
+            circle_marker_cc06c01fb0c4abf399401c37172e591b.bindTooltip(
+                `<div>
+                     Jumeirah 2 - Low
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cc9433eab4df570b15b18d1f608aa40c = L.circleMarker(
+                [25.1962, 55.2371],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.5, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_ba70e259bb1bcf91528ff366d20ff7d3 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_3b0e0f3176834b2442a406895117c147 = $(`<div id="html_3b0e0f3176834b2442a406895117c147" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #22c55e; border-bottom: 2px solid #22c55e; padding-bottom: 8px;'>             🌡️ Jumeirah 3         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Jumeirah</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>6.2/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>50.1°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>35.0%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.21</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>58%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>17,122</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>3,584</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #22c55e22; border-left: 4px solid #22c55e; border-radius: 4px;'>             <strong style='color: #22c55e;'>Risk Level: LOW</strong>         </div>     </div>     </div>`)[0];
+                popup_ba70e259bb1bcf91528ff366d20ff7d3.setContent(html_3b0e0f3176834b2442a406895117c147);
+            
+        
+
+        circle_marker_cc9433eab4df570b15b18d1f608aa40c.bindPopup(popup_ba70e259bb1bcf91528ff366d20ff7d3)
+        ;
+
+        
+    
+    
+            circle_marker_cc9433eab4df570b15b18d1f608aa40c.bindTooltip(
+                `<div>
+                     Jumeirah 3 - Low
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_dd63776111f58cd2f516d99cca7d5ee1 = L.circleMarker(
+                [25.1516, 55.2104],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.25, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_1e040c33c7d54918a104465d5d0b28d7 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_2f5cbc9170714334361c40e7592379f9 = $(`<div id="html_2f5cbc9170714334361c40e7592379f9" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ Umm Suqeim         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Jumeirah</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>6.5/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>50.6°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>32.5%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.26</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>60%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>14,931</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>3,376</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_1e040c33c7d54918a104465d5d0b28d7.setContent(html_2f5cbc9170714334361c40e7592379f9);
+            
+        
+
+        circle_marker_dd63776111f58cd2f516d99cca7d5ee1.bindPopup(popup_1e040c33c7d54918a104465d5d0b28d7)
+        ;
+
+        
+    
+    
+            circle_marker_dd63776111f58cd2f516d99cca7d5ee1.bindTooltip(
+                `<div>
+                     Umm Suqeim - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fbfbe2d7a76587b79d764d74fb42b1dd = L.circleMarker(
+                [25.1197, 55.3789],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.25, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_caaa00801dc9d54be68a954729408860 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_7854f0d18dc409f9514023bb50e81a84 = $(`<div id="html_7854f0d18dc409f9514023bb50e81a84" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ Dubai Silicon Oasis         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> DSO</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Technology</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>6.5/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>49.0°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>22.8%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.30</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>69%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>7,902</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>1,790</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_caaa00801dc9d54be68a954729408860.setContent(html_7854f0d18dc409f9514023bb50e81a84);
+            
+        
+
+        circle_marker_fbfbe2d7a76587b79d764d74fb42b1dd.bindPopup(popup_caaa00801dc9d54be68a954729408860)
+        ;
+
+        
+    
+    
+            circle_marker_fbfbe2d7a76587b79d764d74fb42b1dd.bindTooltip(
+                `<div>
+                     Dubai Silicon Oasis - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_26aa4cb509f47bf77dda7ba01f01f6b9 = L.circleMarker(
+                [25.1689, 55.4155],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.25, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_8bddac71f2c33278c928f1bd1654ca93 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_817c24f8e3091336f43b79e3d45d0197 = $(`<div id="html_817c24f8e3091336f43b79e3d45d0197" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ International City         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> East Dubai</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>6.9/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>51.1°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>30.1%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.23</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>65%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>20,584</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>5,063</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_8bddac71f2c33278c928f1bd1654ca93.setContent(html_817c24f8e3091336f43b79e3d45d0197);
+            
+        
+
+        circle_marker_26aa4cb509f47bf77dda7ba01f01f6b9.bindPopup(popup_8bddac71f2c33278c928f1bd1654ca93)
+        ;
+
+        
+    
+    
+            circle_marker_26aa4cb509f47bf77dda7ba01f01f6b9.bindTooltip(
+                `<div>
+                     International City - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_532904f5d9d87f7b1e57fb6702f58dfa = L.circleMarker(
+                [25.0425, 55.1385],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.5, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_cb64482670ef472dd7086f0dae3c08ee = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_0720c548558af6e344e5b361344bdd77 = $(`<div id="html_0720c548558af6e344e5b361344bdd77" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ Discovery Gardens         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> West Dubai</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>6.6/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>49.0°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>28.1%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.25</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>68%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>19,894</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>4,561</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_cb64482670ef472dd7086f0dae3c08ee.setContent(html_0720c548558af6e344e5b361344bdd77);
+            
+        
+
+        circle_marker_532904f5d9d87f7b1e57fb6702f58dfa.bindPopup(popup_cb64482670ef472dd7086f0dae3c08ee)
+        ;
+
+        
+    
+    
+            circle_marker_532904f5d9d87f7b1e57fb6702f58dfa.bindTooltip(
+                `<div>
+                     Discovery Gardens - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_551032372588f9b5464262a28a5a0816 = L.circleMarker(
+                [25.037, 55.213],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.75, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_5ae9980b3f008394498e1d0fd6dd664e = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_27f81d431df48f33ee6774d17ce39cbe = $(`<div id="html_27f81d431df48f33ee6774d17ce39cbe" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ Dubai Sports City         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> West Dubai</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>7.1/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>52.2°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>13.8%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.27</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>74%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>13,802</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>3,491</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_5ae9980b3f008394498e1d0fd6dd664e.setContent(html_27f81d431df48f33ee6774d17ce39cbe);
+            
+        
+
+        circle_marker_551032372588f9b5464262a28a5a0816.bindPopup(popup_5ae9980b3f008394498e1d0fd6dd664e)
+        ;
+
+        
+    
+    
+            circle_marker_551032372588f9b5464262a28a5a0816.bindTooltip(
+                `<div>
+                     Dubai Sports City - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4511fdb691fccaf12dafcf8a08b97437 = L.circleMarker(
+                [24.9857, 55.0632],
+                {"bubblingMouseEvents": true, "color": "#dc2626", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#dc2626", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 22.75, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_784e98d17feda9a6c1f267304353454f = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_9c47d6506979c52d67da614f218dfd8c = $(`<div id="html_9c47d6506979c52d67da614f218dfd8c" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #dc2626; border-bottom: 2px solid #dc2626; padding-bottom: 8px;'>             🌡️ Jebel Ali Industrial         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Jebel Ali</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Industrial</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>9.1/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>55.0°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>22.5%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.17</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>88%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>2,395</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>844</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #dc262622; border-left: 4px solid #dc2626; border-radius: 4px;'>             <strong style='color: #dc2626;'>Risk Level: CRITICAL</strong>         </div>     </div>     </div>`)[0];
+                popup_784e98d17feda9a6c1f267304353454f.setContent(html_9c47d6506979c52d67da614f218dfd8c);
+            
+        
+
+        circle_marker_4511fdb691fccaf12dafcf8a08b97437.bindPopup(popup_784e98d17feda9a6c1f267304353454f)
+        ;
+
+        
+    
+    
+            circle_marker_4511fdb691fccaf12dafcf8a08b97437.bindTooltip(
+                `<div>
+                     Jebel Ali Industrial - Critical
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b2c057d16983673fa6fd7f530123c8f9 = L.circleMarker(
+                [25.1249, 55.2189],
+                {"bubblingMouseEvents": true, "color": "#dc2626", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#dc2626", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 22.0, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_94813ce4637c748203256c685458ae37 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_27d3609036a3db8c7572b1014464b00e = $(`<div id="html_27d3609036a3db8c7572b1014464b00e" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #dc2626; border-bottom: 2px solid #dc2626; padding-bottom: 8px;'>             🌡️ Al Quoz Industrial         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Industrial</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Industrial</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>8.8/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>51.5°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>7.1%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.07</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>84%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>3,068</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>1,042</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #dc262622; border-left: 4px solid #dc2626; border-radius: 4px;'>             <strong style='color: #dc2626;'>Risk Level: CRITICAL</strong>         </div>     </div>     </div>`)[0];
+                popup_94813ce4637c748203256c685458ae37.setContent(html_27d3609036a3db8c7572b1014464b00e);
+            
+        
+
+        circle_marker_b2c057d16983673fa6fd7f530123c8f9.bindPopup(popup_94813ce4637c748203256c685458ae37)
+        ;
+
+        
+    
+    
+            circle_marker_b2c057d16983673fa6fd7f530123c8f9.bindTooltip(
+                `<div>
+                     Al Quoz Industrial - Critical
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_dc2a757ab81166d1bd792171c3b3273e = L.circleMarker(
+                [25.1833, 55.3667],
+                {"bubblingMouseEvents": true, "color": "#dc2626", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#dc2626", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 23.75, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_758ad79a1b9a3c66dfa849d21c6e0a50 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_cdbab7c5cb334478faa4713dc4b882ea = $(`<div id="html_cdbab7c5cb334478faa4713dc4b882ea" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #dc2626; border-bottom: 2px solid #dc2626; padding-bottom: 8px;'>             🌡️ Ras Al Khor Industrial         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Industrial</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Industrial</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>9.5/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>54.3°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>13.0%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.15</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>84%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>2,851</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>1,062</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #dc262622; border-left: 4px solid #dc2626; border-radius: 4px;'>             <strong style='color: #dc2626;'>Risk Level: CRITICAL</strong>         </div>     </div>     </div>`)[0];
+                popup_758ad79a1b9a3c66dfa849d21c6e0a50.setContent(html_cdbab7c5cb334478faa4713dc4b882ea);
+            
+        
+
+        circle_marker_dc2a757ab81166d1bd792171c3b3273e.bindPopup(popup_758ad79a1b9a3c66dfa849d21c6e0a50)
+        ;
+
+        
+    
+    
+            circle_marker_dc2a757ab81166d1bd792171c3b3273e.bindTooltip(
+                `<div>
+                     Ras Al Khor Industrial - Critical
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_18a8cc4a6ebefa0824cfba42051a28fb = L.circleMarker(
+                [25.2532, 55.3657],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.25, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_e98c971ab6c043a5e8484982a7bf7c54 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_babd202ab70de409159a793f7e424c66 = $(`<div id="html_babd202ab70de409159a793f7e424c66" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ Dubai Airport Area         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Airport</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Commercial</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>7.3/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>51.1°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>29.6%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.23</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>74%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>11,020</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>2,939</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_e98c971ab6c043a5e8484982a7bf7c54.setContent(html_babd202ab70de409159a793f7e424c66);
+            
+        
+
+        circle_marker_18a8cc4a6ebefa0824cfba42051a28fb.bindPopup(popup_e98c971ab6c043a5e8484982a7bf7c54)
+        ;
+
+        
+    
+    
+            circle_marker_18a8cc4a6ebefa0824cfba42051a28fb.bindTooltip(
+                `<div>
+                     Dubai Airport Area - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9cff5da35b8c5149c0b1ee32981c1433 = L.circleMarker(
+                [25.2447, 55.3467],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.5, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_d9d992f2d3380d8d2476917490a9b05a = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_1679420a762f1f0c7e3fb7287faf1cd7 = $(`<div id="html_1679420a762f1f0c7e3fb7287faf1cd7" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ Al Garhoud         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Airport</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>7.4/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>50.5°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>27.6%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.21</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>72%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>16,933</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>4,602</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_d9d992f2d3380d8d2476917490a9b05a.setContent(html_1679420a762f1f0c7e3fb7287faf1cd7);
+            
+        
+
+        circle_marker_9cff5da35b8c5149c0b1ee32981c1433.bindPopup(popup_d9d992f2d3380d8d2476917490a9b05a)
+        ;
+
+        
+    
+    
+            circle_marker_9cff5da35b8c5149c0b1ee32981c1433.bindTooltip(
+                `<div>
+                     Al Garhoud - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7e140e5f57ccb3b23d803a40e2d9ce47 = L.circleMarker(
+                [25.1009, 55.2446],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.0, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_43a2c217cd67910f6d074a868c811b0e = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_35e26ceae8395dc269d8a1dc690e8284 = $(`<div id="html_35e26ceae8395dc269d8a1dc690e8284" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ Dubai Hills Estate         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> New Dubai</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>7.2/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>51.9°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>29.5%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.20</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>63%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>22,484</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>5,817</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_43a2c217cd67910f6d074a868c811b0e.setContent(html_35e26ceae8395dc269d8a1dc690e8284);
+            
+        
+
+        circle_marker_7e140e5f57ccb3b23d803a40e2d9ce47.bindPopup(popup_43a2c217cd67910f6d074a868c811b0e)
+        ;
+
+        
+    
+    
+            circle_marker_7e140e5f57ccb3b23d803a40e2d9ce47.bindTooltip(
+                `<div>
+                     Dubai Hills Estate - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b25e3df53d7d65dfe363d9fc6f057afc = L.circleMarker(
+                [25.0521, 55.2653],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.5, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_23ac060cf54be193fbe72304c3faa93b = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_aaa12d08f25e5b743ab574a0283b5319 = $(`<div id="html_aaa12d08f25e5b743ab574a0283b5319" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ Arabian Ranches         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> New Dubai</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>7.4/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>49.3°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>30.3%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.27</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>62%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>13,810</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>3,742</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_23ac060cf54be193fbe72304c3faa93b.setContent(html_aaa12d08f25e5b743ab574a0283b5319);
+            
+        
+
+        circle_marker_b25e3df53d7d65dfe363d9fc6f057afc.bindPopup(popup_23ac060cf54be193fbe72304c3faa93b)
+        ;
+
+        
+    
+    
+            circle_marker_b25e3df53d7d65dfe363d9fc6f057afc.bindTooltip(
+                `<div>
+                     Arabian Ranches - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7f5774321606311e702d9339591f567b = L.circleMarker(
+                [25.2178, 55.4114],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.5, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_bc2188fed8f4dd2015247185a3b1e41f = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_258afae35e2947a1dadf59c4682e67ad = $(`<div id="html_258afae35e2947a1dadf59c4682e67ad" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ Mirdif         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> East Dubai</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>6.6/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>49.5°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>29.3%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.23</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>70%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>9,307</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>2,162</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_bc2188fed8f4dd2015247185a3b1e41f.setContent(html_258afae35e2947a1dadf59c4682e67ad);
+            
+        
+
+        circle_marker_7f5774321606311e702d9339591f567b.bindPopup(popup_bc2188fed8f4dd2015247185a3b1e41f)
+        ;
+
+        
+    
+    
+            circle_marker_7f5774321606311e702d9339591f567b.bindTooltip(
+                `<div>
+                     Mirdif - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5ee5d2f74273db2c892e88659914ed22 = L.circleMarker(
+                [25.1833, 55.3333],
+                {"bubblingMouseEvents": true, "color": "#f97316", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f97316", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 19.0, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_7c983c47c05b8f6ed9ce6d284511cd76 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_6c72ee65e099996556edfea5aeb9744b = $(`<div id="html_6c72ee65e099996556edfea5aeb9744b" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #f97316; border-bottom: 2px solid #f97316; padding-bottom: 8px;'>             🌡️ Dubai Creek Harbour         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Creek</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Mixed</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>7.6/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>53.5°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>11.9%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.21</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>69%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>6,213</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>1,754</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #f9731622; border-left: 4px solid #f97316; border-radius: 4px;'>             <strong style='color: #f97316;'>Risk Level: HIGH</strong>         </div>     </div>     </div>`)[0];
+                popup_7c983c47c05b8f6ed9ce6d284511cd76.setContent(html_6c72ee65e099996556edfea5aeb9744b);
+            
+        
+
+        circle_marker_5ee5d2f74273db2c892e88659914ed22.bindPopup(popup_7c983c47c05b8f6ed9ce6d284511cd76)
+        ;
+
+        
+    
+    
+            circle_marker_5ee5d2f74273db2c892e88659914ed22.bindTooltip(
+                `<div>
+                     Dubai Creek Harbour - High
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_abbe5514b77258c2230c5ace2f3e22d9 = L.circleMarker(
+                [25.2063, 55.2668],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.75, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_b571d68dbe2937a98002e283dc6e7e8a = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_73806bc64eb1e9d5486293c805188f18 = $(`<div id="html_73806bc64eb1e9d5486293c805188f18" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ City Walk         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Downtown</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Commercial</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>7.5/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>52.0°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>11.1%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.21</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>82%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>6,753</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>1,847</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_b571d68dbe2937a98002e283dc6e7e8a.setContent(html_73806bc64eb1e9d5486293c805188f18);
+            
+        
+
+        circle_marker_abbe5514b77258c2230c5ace2f3e22d9.bindPopup(popup_b571d68dbe2937a98002e283dc6e7e8a)
+        ;
+
+        
+    
+    
+            circle_marker_abbe5514b77258c2230c5ace2f3e22d9.bindTooltip(
+                `<div>
+                     City Walk - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ab6ebc9f870ebadf701569b373e337ac = L.circleMarker(
+                [25.2357, 55.2608],
+                {"bubblingMouseEvents": true, "color": "#f97316", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f97316", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20.0, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_04cdfd3edb59b135e890eb5399ee6b78 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_738acda78208cc9d097b88360300e716 = $(`<div id="html_738acda78208cc9d097b88360300e716" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #f97316; border-bottom: 2px solid #f97316; padding-bottom: 8px;'>             🌡️ La Mer         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Jumeirah</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Commercial</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>8.0/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>53.9°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>26.2%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.18</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>69%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>7,630</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>2,288</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #f9731622; border-left: 4px solid #f97316; border-radius: 4px;'>             <strong style='color: #f97316;'>Risk Level: HIGH</strong>         </div>     </div>     </div>`)[0];
+                popup_04cdfd3edb59b135e890eb5399ee6b78.setContent(html_738acda78208cc9d097b88360300e716);
+            
+        
+
+        circle_marker_ab6ebc9f870ebadf701569b373e337ac.bindPopup(popup_04cdfd3edb59b135e890eb5399ee6b78)
+        ;
+
+        
+    
+    
+            circle_marker_ab6ebc9f870ebadf701569b373e337ac.bindTooltip(
+                `<div>
+                     La Mer - High
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_61e529e17bf79938c49506d490672a3a = L.circleMarker(
+                [25.2888, 55.3872],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.25, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_3a1a43b25c36b8d5460c71b682c0cd2e = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_27297dfa914dba72dce42a9df39ef8e8 = $(`<div id="html_27297dfa914dba72dce42a9df39ef8e8" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ Al Qusais         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> East Dubai</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>6.9/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>51.5°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>24.3%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.27</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>68%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>21,505</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>5,215</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_3a1a43b25c36b8d5460c71b682c0cd2e.setContent(html_27297dfa914dba72dce42a9df39ef8e8);
+            
+        
+
+        circle_marker_61e529e17bf79938c49506d490672a3a.bindPopup(popup_3a1a43b25c36b8d5460c71b682c0cd2e)
+        ;
+
+        
+    
+    
+            circle_marker_61e529e17bf79938c49506d490672a3a.bindTooltip(
+                `<div>
+                     Al Qusais - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_bdd7b97ca1e9816beee6889ea1fe3ef7 = L.circleMarker(
+                [25.2985, 55.3755],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.25, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_6dce36f28ed70603733a15e8095df64f = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_81086436ff068c295835dc4c50d70277 = $(`<div id="html_81086436ff068c295835dc4c50d70277" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ Al Nahda         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> East Dubai</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>6.9/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>51.4°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>12.9%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.27</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>62%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>10,747</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>2,655</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_6dce36f28ed70603733a15e8095df64f.setContent(html_81086436ff068c295835dc4c50d70277);
+            
+        
+
+        circle_marker_bdd7b97ca1e9816beee6889ea1fe3ef7.bindPopup(popup_6dce36f28ed70603733a15e8095df64f)
+        ;
+
+        
+    
+    
+            circle_marker_bdd7b97ca1e9816beee6889ea1fe3ef7.bindTooltip(
+                `<div>
+                     Al Nahda - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_027993a7c16d9e7f05de69e6b8c9c1de = L.circleMarker(
+                [25.2825, 55.3903],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.25, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_f1f2ab8f08489c591a162ad73646f134 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_2beb1e37de2335c39c25375b1f589e9c = $(`<div id="html_2beb1e37de2335c39c25375b1f589e9c" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #22c55e; border-bottom: 2px solid #22c55e; padding-bottom: 8px;'>             🌡️ Al Rashidiya         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> East Dubai</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>6.1/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>50.9°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>27.4%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.23</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>73%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>16,879</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>3,432</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #22c55e22; border-left: 4px solid #22c55e; border-radius: 4px;'>             <strong style='color: #22c55e;'>Risk Level: LOW</strong>         </div>     </div>     </div>`)[0];
+                popup_f1f2ab8f08489c591a162ad73646f134.setContent(html_2beb1e37de2335c39c25375b1f589e9c);
+            
+        
+
+        circle_marker_027993a7c16d9e7f05de69e6b8c9c1de.bindPopup(popup_f1f2ab8f08489c591a162ad73646f134)
+        ;
+
+        
+    
+    
+            circle_marker_027993a7c16d9e7f05de69e6b8c9c1de.bindTooltip(
+                `<div>
+                     Al Rashidiya - Low
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_735d2c1a7ca8aef68f616553ae492343 = L.circleMarker(
+                [24.8967, 55.1611],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.5, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_76d0d6de84c9b765125b7d498abde7de = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_e5d781ef6a1937fe71f699fb9662554c = $(`<div id="html_e5d781ef6a1937fe71f699fb9662554c" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ Dubai South         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> South Dubai</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Mixed</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>7.4/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>50.9°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>18.0%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.24</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>68%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>8,055</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>2,184</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_76d0d6de84c9b765125b7d498abde7de.setContent(html_e5d781ef6a1937fe71f699fb9662554c);
+            
+        
+
+        circle_marker_735d2c1a7ca8aef68f616553ae492343.bindPopup(popup_76d0d6de84c9b765125b7d498abde7de)
+        ;
+
+        
+    
+    
+            circle_marker_735d2c1a7ca8aef68f616553ae492343.bindTooltip(
+                `<div>
+                     Dubai South - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5c8cf49372fa559b36e8f706c1d9e820 = L.circleMarker(
+                [24.9833, 55.1667],
+                {"bubblingMouseEvents": true, "color": "#dc2626", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#dc2626", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 22.75, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_09e4833de66cfb1590b342e5317d5666 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_e3ca1a2670755fe9c68245a9150423b4 = $(`<div id="html_e3ca1a2670755fe9c68245a9150423b4" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #dc2626; border-bottom: 2px solid #dc2626; padding-bottom: 8px;'>             🌡️ Dubai Investment Park         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> South Dubai</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Industrial</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>9.1/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>52.9°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>6.1%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.12</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>81%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>2,658</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>947</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #dc262622; border-left: 4px solid #dc2626; border-radius: 4px;'>             <strong style='color: #dc2626;'>Risk Level: CRITICAL</strong>         </div>     </div>     </div>`)[0];
+                popup_09e4833de66cfb1590b342e5317d5666.setContent(html_e3ca1a2670755fe9c68245a9150423b4);
+            
+        
+
+        circle_marker_5c8cf49372fa559b36e8f706c1d9e820.bindPopup(popup_09e4833de66cfb1590b342e5317d5666)
+        ;
+
+        
+    
+    
+            circle_marker_5c8cf49372fa559b36e8f706c1d9e820.bindTooltip(
+                `<div>
+                     Dubai Investment Park - Critical
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ee9eb75ec88079a477d33c64f26f08e4 = L.circleMarker(
+                [25.0965, 55.1727],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.25, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_5b96912ae423e1a68c198d8daf9a1ac9 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_136769edfc59768a76cc32874befdfd5 = $(`<div id="html_136769edfc59768a76cc32874befdfd5" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ Emirates Hills         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> West Dubai</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>6.9/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>49.1°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>21.0%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.28</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>61%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>20,306</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>4,987</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_5b96912ae423e1a68c198d8daf9a1ac9.setContent(html_136769edfc59768a76cc32874befdfd5);
+            
+        
+
+        circle_marker_ee9eb75ec88079a477d33c64f26f08e4.bindPopup(popup_5b96912ae423e1a68c198d8daf9a1ac9)
+        ;
+
+        
+    
+    
+            circle_marker_ee9eb75ec88079a477d33c64f26f08e4.bindTooltip(
+                `<div>
+                     Emirates Hills - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ceae50308a2b1242a23324ea8446038d = L.circleMarker(
+                [25.0858, 55.1425],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.75, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_f3f70b64ae348f22c45e7581a8da7061 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_19839ef01a7d3a50c714ac989af5f6ed = $(`<div id="html_19839ef01a7d3a50c714ac989af5f6ed" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ Dubai Marina Heights         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Marina</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>6.7/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>49.2°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>21.3%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.26</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>63%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>10,906</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>2,558</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_f3f70b64ae348f22c45e7581a8da7061.setContent(html_19839ef01a7d3a50c714ac989af5f6ed);
+            
+        
+
+        circle_marker_ceae50308a2b1242a23324ea8446038d.bindPopup(popup_f3f70b64ae348f22c45e7581a8da7061)
+        ;
+
+        
+    
+    
+            circle_marker_ceae50308a2b1242a23324ea8446038d.bindTooltip(
+                `<div>
+                     Dubai Marina Heights - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c6e8b4b5aca302c675439d99694d2881 = L.circleMarker(
+                [25.0629, 55.2082],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.75, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_8f36b35499320ce46c64474e560df366 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_1e194d4f1702da51f467676234cf2d42 = $(`<div id="html_1e194d4f1702da51f467676234cf2d42" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ Jumeirah Village Circle         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> West Dubai</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>6.7/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>51.2°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>18.9%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.28</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>59%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>12,391</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>2,938</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_8f36b35499320ce46c64474e560df366.setContent(html_1e194d4f1702da51f467676234cf2d42);
+            
+        
+
+        circle_marker_c6e8b4b5aca302c675439d99694d2881.bindPopup(popup_8f36b35499320ce46c64474e560df366)
+        ;
+
+        
+    
+    
+            circle_marker_c6e8b4b5aca302c675439d99694d2881.bindTooltip(
+                `<div>
+                     Jumeirah Village Circle - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0d8417af36959edc61e6951780e400bd = L.circleMarker(
+                [25.0596, 55.1941],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.25, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_ce165684bcf1cf7855fba6dce25f55b6 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_468f8e48a313936bec60a93c3f12c7e5 = $(`<div id="html_468f8e48a313936bec60a93c3f12c7e5" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #22c55e; border-bottom: 2px solid #22c55e; padding-bottom: 8px;'>             🌡️ Jumeirah Village Triangle         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> West Dubai</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>6.1/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>48.5°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>18.3%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.25</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>55%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>8,879</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>1,834</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #22c55e22; border-left: 4px solid #22c55e; border-radius: 4px;'>             <strong style='color: #22c55e;'>Risk Level: LOW</strong>         </div>     </div>     </div>`)[0];
+                popup_ce165684bcf1cf7855fba6dce25f55b6.setContent(html_468f8e48a313936bec60a93c3f12c7e5);
+            
+        
+
+        circle_marker_0d8417af36959edc61e6951780e400bd.bindPopup(popup_ce165684bcf1cf7855fba6dce25f55b6)
+        ;
+
+        
+    
+    
+            circle_marker_0d8417af36959edc61e6951780e400bd.bindTooltip(
+                `<div>
+                     Jumeirah Village Triangle - Low
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fb133be097f707077ee2458fa5a62c91 = L.circleMarker(
+                [25.0287, 55.1817],
+                {"bubblingMouseEvents": true, "color": "#f97316", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f97316", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20.25, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_ad232456f866fba8fccaf2848a1f1a24 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_3b41f96611356b7eed157e31604a1119 = $(`<div id="html_3b41f96611356b7eed157e31604a1119" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #f97316; border-bottom: 2px solid #f97316; padding-bottom: 8px;'>             🌡️ Dubai Production City         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> West Dubai</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Commercial</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>8.1/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>51.9°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>12.5%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.15</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>69%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>8,138</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>2,494</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #f9731622; border-left: 4px solid #f97316; border-radius: 4px;'>             <strong style='color: #f97316;'>Risk Level: HIGH</strong>         </div>     </div>     </div>`)[0];
+                popup_ad232456f866fba8fccaf2848a1f1a24.setContent(html_3b41f96611356b7eed157e31604a1119);
+            
+        
+
+        circle_marker_fb133be097f707077ee2458fa5a62c91.bindPopup(popup_ad232456f866fba8fccaf2848a1f1a24)
+        ;
+
+        
+    
+    
+            circle_marker_fb133be097f707077ee2458fa5a62c91.bindTooltip(
+                `<div>
+                     Dubai Production City - High
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f663e0f3a9c8c7808d425bbba8093c91 = L.circleMarker(
+                [25.0482, 55.2284],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.0, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_3af69858418cf1c881b3b696c346a564 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_bf6510c879723e0cf9e4a0ba4cdc4bd2 = $(`<div id="html_bf6510c879723e0cf9e4a0ba4cdc4bd2" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #22c55e; border-bottom: 2px solid #22c55e; padding-bottom: 8px;'>             🌡️ Motor City         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> West Dubai</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>6.4/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>48.2°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>26.0%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.24</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>56%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>22,763</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>5,017</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #22c55e22; border-left: 4px solid #22c55e; border-radius: 4px;'>             <strong style='color: #22c55e;'>Risk Level: LOW</strong>         </div>     </div>     </div>`)[0];
+                popup_3af69858418cf1c881b3b696c346a564.setContent(html_bf6510c879723e0cf9e4a0ba4cdc4bd2);
+            
+        
+
+        circle_marker_f663e0f3a9c8c7808d425bbba8093c91.bindPopup(popup_3af69858418cf1c881b3b696c346a564)
+        ;
+
+        
+    
+    
+            circle_marker_f663e0f3a9c8c7808d425bbba8093c91.bindTooltip(
+                `<div>
+                     Motor City - Low
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a08e69be35ac911a60f31d67e2644134 = L.circleMarker(
+                [25.0446, 55.1986],
+                {"bubblingMouseEvents": true, "color": "#facc15", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#facc15", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.0, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_c947789734db1bdc9f849e359393ffc6 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_710104163d660eec5f5b3a6555652c0b = $(`<div id="html_710104163d660eec5f5b3a6555652c0b" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 8px;'>             🌡️ Studio City         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> West Dubai</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Residential</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>7.2/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>49.3°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>30.9%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.29</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>60%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>23,284</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>6,080</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #facc1522; border-left: 4px solid #facc15; border-radius: 4px;'>             <strong style='color: #facc15;'>Risk Level: MEDIUM</strong>         </div>     </div>     </div>`)[0];
+                popup_c947789734db1bdc9f849e359393ffc6.setContent(html_710104163d660eec5f5b3a6555652c0b);
+            
+        
+
+        circle_marker_a08e69be35ac911a60f31d67e2644134.bindPopup(popup_c947789734db1bdc9f849e359393ffc6)
+        ;
+
+        
+    
+    
+            circle_marker_a08e69be35ac911a60f31d67e2644134.bindTooltip(
+                `<div>
+                     Studio City - Medium
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e2a626009ffd6ade279dacfd96c6310d = L.circleMarker(
+                [25.1258, 55.4056],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.25, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_c42530b55b5c12e0e498a1c5a98c6a3b = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_a7790ff74af6da3791592b5f6abba6e2 = $(`<div id="html_a7790ff74af6da3791592b5f6abba6e2" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #22c55e; border-bottom: 2px solid #22c55e; padding-bottom: 8px;'>             🌡️ Academic City         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> East Dubai</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Educational</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>5.7/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>48.2°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>31.1%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.26</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>57%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>3,891</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>725</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #22c55e22; border-left: 4px solid #22c55e; border-radius: 4px;'>             <strong style='color: #22c55e;'>Risk Level: LOW</strong>         </div>     </div>     </div>`)[0];
+                popup_c42530b55b5c12e0e498a1c5a98c6a3b.setContent(html_a7790ff74af6da3791592b5f6abba6e2);
+            
+        
+
+        circle_marker_e2a626009ffd6ade279dacfd96c6310d.bindPopup(popup_c42530b55b5c12e0e498a1c5a98c6a3b)
+        ;
+
+        
+    
+    
+            circle_marker_e2a626009ffd6ade279dacfd96c6310d.bindTooltip(
+                `<div>
+                     Academic City - Low
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3ce8adf5dd0af6e0c2fe62a7b037c8d6 = L.circleMarker(
+                [25.1145, 55.3856],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.25, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_ea7b33387c4af46f765863dafd8369db = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_8d6a40ffac3342b54fa2e251bfd5326c = $(`<div id="html_8d6a40ffac3342b54fa2e251bfd5326c" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #22c55e; border-bottom: 2px solid #22c55e; padding-bottom: 8px;'>             🌡️ Knowledge Park         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> East Dubai</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Educational</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>5.7/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>50.5°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>32.8%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.35</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>41%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>2,604</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>478</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #22c55e22; border-left: 4px solid #22c55e; border-radius: 4px;'>             <strong style='color: #22c55e;'>Risk Level: LOW</strong>         </div>     </div>     </div>`)[0];
+                popup_ea7b33387c4af46f765863dafd8369db.setContent(html_8d6a40ffac3342b54fa2e251bfd5326c);
+            
+        
+
+        circle_marker_3ce8adf5dd0af6e0c2fe62a7b037c8d6.bindPopup(popup_ea7b33387c4af46f765863dafd8369db)
+        ;
+
+        
+    
+    
+            circle_marker_3ce8adf5dd0af6e0c2fe62a7b037c8d6.bindTooltip(
+                `<div>
+                     Knowledge Park - Low
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_553093ae3969e46bc56bc15b15ea6d74 = L.circleMarker(
+                [25.2369, 55.3258],
+                {"bubblingMouseEvents": true, "color": "#22c55e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#22c55e", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.0, "stroke": true, "weight": 2}
+            ).addTo(marker_cluster_7212cb95b77c9c02400b98ab4ba00594);
+        
+    
+        var popup_294a3b50c59f607d14172bb6e4f25cba = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_c6fe47bd91fbf499ed4f15d32182bd79 = $(`<div id="html_c6fe47bd91fbf499ed4f15d32182bd79" style="width: 100.0%; height: 100.0%;">     <div style='font-family: Arial, sans-serif; width: 280px; padding: 10px;'>         <h3 style='margin: 0 0 12px 0; color: #22c55e; border-bottom: 2px solid #22c55e; padding-bottom: 8px;'>             🌡️ Healthcare City         </h3>                  <div style='background: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px;'>             <p style='margin: 5px 0;'><strong>📍 District:</strong> Medical</p>             <p style='margin: 5px 0;'><strong>🏢 Type:</strong> Medical</p>         </div>                  <table style='width: 100%; font-size: 13px; border-collapse: collapse;'>             <tr style='background: #fff3cd;'>                 <td style='padding: 6px;'><strong>🔥 Heat Index:</strong></td>                 <td style='padding: 6px; text-align: right;'><strong>6.4/10</strong></td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🌡️ Surface Temp:</strong></td>                 <td style='padding: 6px; text-align: right;'>48.8°C</td>             </tr>             <tr style='background: #d1e7dd;'>                 <td style='padding: 6px;'><strong>🌿 Vegetation:</strong></td>                 <td style='padding: 6px; text-align: right;'>18.3%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>🔆 Albedo:</strong></td>                 <td style='padding: 6px; text-align: right;'>0.26</td>             </tr>             <tr style='background: #f8f9fa;'>                 <td style='padding: 6px;'><strong>🏗️ Built Density:</strong></td>                 <td style='padding: 6px; text-align: right;'>59%</td>             </tr>             <tr>                 <td style='padding: 6px;'><strong>👥 Population:</strong></td>                 <td style='padding: 6px; text-align: right;'>3,753</td>             </tr>             <tr style='background: #f8d7da;'>                 <td style='padding: 6px;'><strong>⚠️ Vulnerable:</strong></td>                 <td style='padding: 6px; text-align: right;'>834</td>             </tr>         </table>                  <div style='margin-top: 12px; padding: 10px; background: #22c55e22; border-left: 4px solid #22c55e; border-radius: 4px;'>             <strong style='color: #22c55e;'>Risk Level: LOW</strong>         </div>     </div>     </div>`)[0];
+                popup_294a3b50c59f607d14172bb6e4f25cba.setContent(html_c6fe47bd91fbf499ed4f15d32182bd79);
+            
+        
+
+        circle_marker_553093ae3969e46bc56bc15b15ea6d74.bindPopup(popup_294a3b50c59f607d14172bb6e4f25cba)
+        ;
+
+        
+    
+    
+            circle_marker_553093ae3969e46bc56bc15b15ea6d74.bindTooltip(
+                `<div>
+                     Healthcare City - Low
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            marker_cluster_7212cb95b77c9c02400b98ab4ba00594.addTo(map_acedc1ae00df8671c2852622088b8068);
+        
+    
+            var heat_map_c66c07a78770117a233d528fc36d38a1 = L.heatLayer(
+                [[25.1972, 55.2744, 8.4], [25.1876, 55.2571, 7.2], [25.2138, 55.2808, 8.1], [25.2285, 55.2866, 7.2], [25.0805, 55.1397, 7.0], [25.0782, 55.1338, 7.4], [25.1124, 55.139, 6.2], [25.0756, 55.1209, 6.5], [25.2715, 55.3273, 7.1], [25.2631, 55.2972, 7.3], [25.2511, 55.3053, 7.0], [25.2458, 55.2897, 6.5], [25.1122, 55.1998, 6.7], [25.1379, 55.2334, 9.0], [25.2328, 55.2574, 7.2], [25.2158, 55.2467, 6.3], [25.1962, 55.2371, 6.2], [25.1516, 55.2104, 6.5], [25.1197, 55.3789, 6.5], [25.1689, 55.4155, 6.9], [25.0425, 55.1385, 6.6], [25.037, 55.213, 7.1], [24.9857, 55.0632, 9.1], [25.1249, 55.2189, 8.8], [25.1833, 55.3667, 9.5], [25.2532, 55.3657, 7.3], [25.2447, 55.3467, 7.4], [25.1009, 55.2446, 7.2], [25.0521, 55.2653, 7.4], [25.2178, 55.4114, 6.6], [25.1833, 55.3333, 7.6], [25.2063, 55.2668, 7.5], [25.2357, 55.2608, 8.0], [25.2888, 55.3872, 6.9], [25.2985, 55.3755, 6.9], [25.2825, 55.3903, 6.1], [24.8967, 55.1611, 7.4], [24.9833, 55.1667, 9.1], [25.0965, 55.1727, 6.9], [25.0858, 55.1425, 6.7], [25.0629, 55.2082, 6.7], [25.0596, 55.1941, 6.1], [25.0287, 55.1817, 8.1], [25.0482, 55.2284, 6.4], [25.0446, 55.1986, 7.2], [25.1258, 55.4056, 5.7], [25.1145, 55.3856, 5.7], [25.2369, 55.3258, 6.4]],
+                {
+  "minOpacity": 0.4,
+  "maxZoom": 15,
+  "radius": 20,
+  "blur": 15,
+  "gradient": {
+  0.0: "#22c55e",
+  0.4: "#facc15",
+  0.7: "#f97316",
+  1.0: "#dc2626",
+},
+}
+            );
+        
+    
+            heat_map_c66c07a78770117a233d528fc36d38a1.addTo(map_acedc1ae00df8671c2852622088b8068);
+        
+    
+            var layer_control_50a4803adf77be66156bdd1593227bce_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_43e56f4fd853c1a5740a2c0e87ad1ea9,
+                    "Light Map" : tile_layer_00838205e4e7ca4a688c989126202586,
+                    "Dark Map" : tile_layer_998bf4e7484c10af9134be9cfe7304d4,
+                },
+                overlays :  {
+                    "Heat Zones" : marker_cluster_7212cb95b77c9c02400b98ab4ba00594,
+                    "Heat Intensity" : heat_map_c66c07a78770117a233d528fc36d38a1,
+                },
+            };
+            let layer_control_50a4803adf77be66156bdd1593227bce = L.control.layers(
+                layer_control_50a4803adf77be66156bdd1593227bce_layers.base_layers,
+                layer_control_50a4803adf77be66156bdd1593227bce_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_acedc1ae00df8671c2852622088b8068);
+
+        
+</script>
+</html>
