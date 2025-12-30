@@ -76,10 +76,10 @@ desert-heatlens/
 
 ## 🎨 Technology Stack
 
-- **Frontend**: React 18, Recharts, Lucide Icons
-- **Styling**: Tailwind CSS, Glassmorphism design
-- **Data Processing**: Python, Pandas, Folium
-- **Deployment**: Vercel / Netlify ready
+- **Frontend**: React 18
+- **Styling**: Tailwind CSS
+- **Data Processing**: Python
+- **Deployment**: Vercel
 
 ## 📈 Performance
 
