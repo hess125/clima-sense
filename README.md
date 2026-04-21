@@ -1,30 +1,29 @@
-# 🌡️ ClimaSense
+# ClimaSense
 
 **Climate Resilience Intelligence Platform for UAE**
-
 A comprehensive AI-powered geospatial platform that detects, predicts, and visualizes urban heat vulnerability zones across UAE cities.
 
-## ✨ Features
+## Features
 
-### 🗺️ Interactive Heat Map Dashboard
+### Interactive Heat Map Dashboard
 - Real-time visualization of 47+ Dubai zones
 - Heat index, temperature, and vegetation metrics
 - Risk classification system (Critical/High/Medium/Low)
 - Detailed zone analysis with recommendations
 
-### 🤖 AI Urban Mirage - Predictive Analytics
+### AI Urban Mirage - Predictive Analytics
 - 2030 heat forecasts using machine learning
 - Multiple development scenario simulations
 - ROI analysis for cooling interventions
 - Satellite data integration (MODIS, Sentinel-2, Landsat)
 
-### 🧭 CoolPath - Heat-Safe Navigation
+### CoolPath - Heat-Safe Navigation
 - AI-powered route optimization
 - Solar exposure and shade analysis
 - Real-time temperature-aware pathfinding
 - Health and safety recommendations
 
-## 🚀 Quick Start
+## Setup
 
 ### Prerequisites
 - Node.js 16+ and npm
@@ -54,7 +53,7 @@ cd ..
 npm start
 ```
 
-## 📊 Data Sources
+## Data Sources
 
 - **MODIS LST**: Surface temperature variations
 - **Sentinel-2 SWIR**: Material reflectivity classification  
@@ -62,7 +61,7 @@ npm start
 - **OpenStreetMap**: Urban morphology and building data
 - **ML Models**: Random Forest & Gradient Boosting
 
-## 🏗️ Project Structure
+## Project Structure
 ```
 desert-heatlens/
 ├── data-processing/          # Python scripts for data generation
@@ -74,14 +73,14 @@ desert-heatlens/
 └── public/                 # Static assets
 ```
 
-## 🎨 Technology Stack
+## Technology Stack
 
 - **Frontend**: React 18
 - **Styling**: Tailwind CSS
 - **Data Processing**: Python
 - **Deployment**: Vercel
 
-## 📈 Performance
+## Performance
 
 - 47 monitored zones across Dubai
 - 94% prediction accuracy
